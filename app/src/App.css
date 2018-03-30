@@ -1,0 +1,35 @@
+@import '~antd/dist/antd.css';
+
+#root .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, .2);
+  margin: 16px;
+}
+
+#root .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#root .trigger:hover {
+  color: #1890ff;
+}
+
+#root .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+
+#root .login-form {
+  max-width: 300px;
+}
+#root .login-form-forgot {
+  float: right;
+}
+#root .login-form-button {
+  width: 100%;
+}
