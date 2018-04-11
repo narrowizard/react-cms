@@ -15,18 +15,16 @@ export function get(url, data) {
         }
 
         fetch(urlWithParams).then((res) => {
-            if (!res.ok) {
-                reject("请求失败,请稍后再试");
-                return;
-            }
             try {
-                res.json().then((data) => {
-                    if (data.Code === 0) {
-                        var pData = JSON.parse(data.Data);
-                        resolve(pData);
-                    } else {
-                        reject(data.Message || "请求失败");
-                    }
+                if (!res.ok) {
+                    // 请求失败
+                    res.json().then((data) => {
+                        reject(data.message);
+                    })
+                    return;
+                }
+                res.text().then((data) => {
+                    resolve(data);
                 });
             } catch (e) {
                 reject("无法解析的返回值")
@@ -55,19 +53,16 @@ export function post(url, data) {
             },
             body: params
         }).then((res) => {
-            if (!res.ok) {
-                reject("请求失败,请稍后再试");
-                return;
-            }
             try {
-                res.json().then((data) => {
-                    if (data.Code === 0) {
-                        var pData = JSON.parse(data.Data);
-                        resolve(pData);
-                    } else {
-                        reject(data.Message || "请求失败");
-                        return;
-                    }
+                if (!res.ok) {
+                    // 请求失败
+                    res.json().then((data) => {
+                        reject(data.message);
+                    })
+                    return;
+                }
+                res.text().then((data) => {
+                    resolve(data);
                 });
             } catch (e) {
                 reject("无法解析的返回值")

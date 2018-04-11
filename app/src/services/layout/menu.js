@@ -5,7 +5,7 @@ export function getUserModules() {
                 Name: "用户管理",
                 ID: 1,
                 Icon: "user",
-                URL: "/layout/manager/user"
+                URL: "/layout/manager/user/list"
             },
             {
                 Name: "模块二",

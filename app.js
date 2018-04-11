@@ -14,18 +14,19 @@ app.use(logger('dev'));
 app.use(cookieParser());
 
 app.use('/', express.static('app/build'));
-// proxy request start with /api to localhost:8081
-app.use('/api', proxy('localhost:8081'));
+// proxy request start with /user to 10.0.0.236:8080
+app.use('/user', proxy('10.0.0.236:8080'));
+// app.use('/user', proxy('127.0.0.1:8888'));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

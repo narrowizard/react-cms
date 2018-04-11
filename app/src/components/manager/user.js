@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { Layout, Table, Divider, Button, Pagination, Popconfirm, message } from 'antd';
 import { TableColumn } from '../../models/table';
 import { TsDate } from '../../utils/date';
+import { getUserList } from '../../services/user/user';
 
 const { Content } = Layout;
 const delInfo = "你确定要删除吗?";
@@ -15,10 +17,14 @@ export class UserManageComponent extends React.Component {
         this.state = {
             data: [],
             loading: false,
-        }
+            search: "",
+            total: 0
+        };
+
+        this.onPageChange = this.onPageChange.bind(this);
 
         this.columns = [new TableColumn("编号", "ID", "ID"),
-        new TableColumn("用户名", "UserName", "UserName"),
+        new TableColumn("用户名", "Account", "Account"),
         new TableColumn("创建时间", "CreatedAt", "CreatedAt", (text, record) => {
             return (new TsDate(text)).Format("yyyy-MM-dd");
         }),
@@ -33,13 +39,43 @@ export class UserManageComponent extends React.Component {
         ))];
     }
 
+    componentDidMount() {
+        this.userList(this.props.match.params.page);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.userList(nextProps.match.params.page);
+    }
+
+    userList(page) {
+        if (!page) {
+            return;
+        }
+        this.setState({
+            loading: true
+        })
+        getUserList(page, this.state.search).then((data) => {
+            this.setState({
+                data: data.Data,
+                total: data.Total,
+                loading: false
+            });
+        })
+    }
+
+    onPageChange(page, pagesize) {
+        this.props.history.push({ pathname: "/layout/manager/user/list/" + page })
+    }
+
     render() {
+        if (!this.props.match.params.page) {
+            return <Redirect push to="/layout/manager/user/list/1" />;
+        }
         return (<Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             <div style={{ marginBottom: 20, textAlign: "right" }}><Button type="primary" size="large" ><Link to="/layout/manager/user/new">创建新用户</Link></Button></div>
             <div>
                 <Table
                     columns={this.columns}
-                    expandedRowRender={record => <p style={{ margin: 0 }}>{"合作模式描述：" + record.Remark}</p>}
                     dataSource={this.state.data}
                     pagination={false}
                     loading={this.state.loading}
