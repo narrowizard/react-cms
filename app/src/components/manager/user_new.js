@@ -43,7 +43,7 @@ export class UserNew extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/layout/manager/user" />;
+            return <Redirect push to="/layout/manager/user/list" />;
         }
         return (<div>
             <Spin spinning={this.state.loadingInfo}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import { BrowserRouter as Router, Link, Switch } from 'react-router-dom';
+import { Link, Switch } from 'react-router-dom';
 import { getUserModules } from '../services/layout/menu';
 import { getRouter } from '../router';
 
