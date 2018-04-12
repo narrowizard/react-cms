@@ -70,11 +70,9 @@ export class LayoutComponent extends React.Component {
                             onClick={this.toggle}
                         />
                     </Header>
-                    <Router>
-                        <Switch>
-                            {getRouter()}
-                        </Switch>
-                    </Router>
+                    <Switch>
+                        {getRouter()}
+                    </Switch>
                 </Layout>
             </Layout>
         )

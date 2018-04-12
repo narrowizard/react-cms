@@ -8,14 +8,20 @@ export function getUserModules() {
                 URL: "/layout/manager/user/list"
             },
             {
-                Name: "模块二",
+                Name: "模块管理",
                 ID: 2,
+                Icon: "user",
+                URL: "/layout/manager/module/list"
+            },
+            {
+                Name: "模块二",
+                ID: 3,
                 Icon: "inbox",
                 Children: [
                     {
                         Name: "子模块一",
                         URL: "/layout/manager/test",
-                        ID: 3,
+                        ID: 4,
                     },
                 ]
             },
