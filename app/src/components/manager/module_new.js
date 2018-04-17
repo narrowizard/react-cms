@@ -36,46 +36,27 @@ export class ModuleNew extends React.Component {
         var options = this.state.icons.map((item) => {
             return <Option key={item} value={item}><Icon type={item} /> {item}</Option>
         })
-        if (this.props.mode === "create") {
-
-            return (<div>
-                <label>父模块</label>
-                <Input value={this.props.curData.pName} disabled={true} />
-                <label>模块名称</label>
-                <Input value={this.props.curData.name} name="name" onChange={this.onFormChange} placeholder="请输入模块名称" />
-                <label>模块URL</label>
-                <Input value={this.props.curData.url} name="url" onChange={this.onFormChange} placeholder="请输入模块URL" />
-                <label>模块图标</label>
-                <Select
-                    showSearch
-                    style={{ display: "block" }}
-                    placeholder="选择模块图标"
-                    optionFilterProp="children"
-                    onChange={this.onIconChange}
-                    filterOption={(input, option) => {
-                        return option.props.children[2].toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }}
-                >
-                    {options}
-                </Select>
-            </div>);
-        } else if (this.props.mode === "edit") {
-            return (<div>
-                <label>模块名称</label>
-                <Input value={this.state.name} name="name" onChange={this.onFormChange} placeholder="请输入模块名称" />
-                <label>模块URL</label>
-                <Input value={this.state.url} name="url" onChange={this.onFormChange} placeholder="请输入模块URL" />
-                <label>模块图标</label>
-                <Select
-                    showSearch
-                    style={{ display: "block" }}
-                    placeholder="选择模块图标"
-                    optionFilterProp="children"
-                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
-                    {options}
-                </Select>
-            </div>);
-        }
+        return (<div>
+            {this.props.mode === "create" ? (<div><label>父模块</label>
+                <Input value={this.props.curData.pName} disabled={true} /></div>) : null}
+            <label>模块名称</label>
+            <Input value={this.props.curData.name} name="name" onChange={this.onFormChange} placeholder="请输入模块名称" />
+            <label>模块URL</label>
+            <Input value={this.props.curData.url} name="url" onChange={this.onFormChange} placeholder="请输入模块URL" />
+            <label>模块图标</label>
+            <Select
+                showSearch
+                style={{ display: "block" }}
+                placeholder="选择模块图标"
+                optionFilterProp="children"
+                onChange={this.onIconChange}
+                value={this.props.curData.icon}
+                filterOption={(input, option) => {
+                    return option.props.children[2].toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }}
+            >
+                {options}
+            </Select>
+        </div>);
     }
 }

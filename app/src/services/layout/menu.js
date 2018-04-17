@@ -44,6 +44,22 @@ export function newModule(pid, name, url, icon) {
     });
 }
 
+/**
+ * 更新模块信息
+ * @param {number} id 模块编号
+ * @param {string} name 模块名称
+ * @param {string} url 模块地址
+ * @param {string} icon 模块图标
+ */
+export function updateModule(id, name, url, icon) {
+    return putUser("/menu/update", {
+        id: id,
+        name: name,
+        url: url,
+        icon: icon
+    })
+}
+
 function translateMenuData(menu) {
     for (var i = 0; i < menu.length; i++) {
         var v = menu[i];

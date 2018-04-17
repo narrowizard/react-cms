@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableColumn } from '../../models/table';
 import { Modal, Icon, Layout, Table, Divider, Button, Popconfirm, message } from 'antd';
-import { getModules, newModule } from '../../services/layout/menu';
+import { getModules, newModule, updateModule } from '../../services/layout/menu';
 import { ModuleNew } from './module_new';
 const { Content } = Layout;
 
@@ -70,8 +70,14 @@ export class ModuleManageComponent extends React.Component {
     }
 
     onEditClick(pdata) {
+        var temp = {
+            name: pdata.Name,
+            url: pdata.URL,
+            icon: pdata.Icon,
+            id: pdata.ID
+        }
         this.setState({
-            curData: pdata,
+            curData: temp,
             mode: "edit",
             showDialog: true
         })
@@ -94,12 +100,16 @@ export class ModuleManageComponent extends React.Component {
     onSubmit() {
         if (this.state.mode === "create") {
             newModule(this.state.curData.parentid, this.state.curData.name, this.state.curData.url, this.state.curData.icon).then((data) => {
-                message.success("创建模块成功!");
+                message.success("模块创建成功!");
                 this.hideDialog();
                 this.refreshData();
             });
         } else if (this.state.mode === "edit") {
-
+            updateModule(this.state.curData.id, this.state.curData.name, this.state.curData.url, this.state.curData.icon).then((data) => {
+                message.success("模块修改成功!");
+                this.hideDialog();
+                this.refreshData();
+            });
         }
     }
 
