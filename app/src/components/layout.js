@@ -28,7 +28,7 @@ export class LayoutComponent extends React.Component {
             return [];
         }
         var menu = data.map((item) => {
-            if (item.Children) {
+            if (item.Children && item.Children.length > 0) {
                 return <SubMenu
                     key={item.ID}
                     title={<span>{item.Icon ? <Icon type={item.Icon} /> : null}<span>{item.Name}</span></span>}
