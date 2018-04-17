@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { Layout, Table, Divider, Button, Pagination, Popconfirm, message, Input } from 'antd';
 import { TableColumn } from '../../models/table';
 import { TsDate } from '../../utils/date';
-import { getUserList, deleteUser, updateUser } from '../../services/user/user';
+import { getUserList, deleteUser, updateUserStatus } from '../../services/user/user';
 
 const { Content } = Layout;
 const { Search } = Input;
@@ -109,7 +109,7 @@ export class UserManageComponent extends React.Component {
 
     onChangeStatus(user) {
         var status = user.Status === 1 ? 2 : 1;
-        updateUser(user.ID, status).then((data) => {
+        updateUserStatus(user.ID, status).then((data) => {
             message.success("状态修改成功.");
             this.refreshCurPage();
         });

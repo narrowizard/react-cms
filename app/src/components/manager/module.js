@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableColumn } from '../../models/table';
-import { Modal, Icon, Layout, Table, Divider, Button, Popconfirm, message } from 'antd';
+import { Modal, Icon, Layout, Table, Divider, Button, message } from 'antd';
 import { getModules, newModule, updateModule } from '../../services/layout/menu';
 import { ModuleNew } from './module_new';
 const { Content } = Layout;

@@ -1,4 +1,4 @@
-import { getUser, postUser, delUser, putUser } from "../common/proxy";
+import { getUser, postUser, putUser } from "../common/proxy";
 
 /**
  * 获取模块列表
