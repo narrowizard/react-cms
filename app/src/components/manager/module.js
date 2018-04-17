@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableColumn } from '../../models/table';
 import { Modal, Icon, Layout, Table, Divider, Button, Popconfirm, message } from 'antd';
-import { getModules } from '../../services/layout/menu';
+import { getModules, newModule } from '../../services/layout/menu';
 import { ModuleNew } from './module_new';
 const { Content } = Layout;
 
@@ -38,6 +38,10 @@ export class ModuleManageComponent extends React.Component {
     }
 
     componentDidMount() {
+        this.refreshData();
+    }
+
+    refreshData() {
         this.setState({
             loading: true
         })
@@ -54,7 +58,7 @@ export class ModuleManageComponent extends React.Component {
             parentid: 0,
             pName: "顶级模块"
         }
-        if (pdata) {
+        if (pdata && pdata.Name) {
             temp.parentid = pdata.ID;
             temp.pName = pdata.Name;
         }
@@ -89,6 +93,12 @@ export class ModuleManageComponent extends React.Component {
 
     onSubmit() {
         if (this.state.mode === "create") {
+            newModule(this.state.curData.parentid, this.state.curData.name, this.state.curData.url, this.state.curData.icon).then((data) => {
+                message.success("创建模块成功!");
+                this.hideDialog();
+                this.refreshData();
+            });
+        } else if (this.state.mode === "edit") {
 
         }
     }
