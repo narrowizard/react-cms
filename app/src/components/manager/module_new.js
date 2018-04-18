@@ -1,7 +1,9 @@
 import React from 'react';
-import { Icon, Input, Select } from 'antd';
+import { Icon, Input, Select, Radio } from 'antd';
 import { getIcons } from '../../services/layout/menu';
 const Option = Select.Option;
+const { TextArea } = Input;
+const RadioGroup = Radio.Group;
 
 export class ModuleNew extends React.Component {
     constructor(props) {
@@ -41,8 +43,17 @@ export class ModuleNew extends React.Component {
                 <Input value={this.props.curData.pName} disabled={true} /></div>) : null}
             <label>模块名称</label>
             <Input value={this.props.curData.name} name="name" onChange={this.onFormChange} placeholder="请输入模块名称" />
+            <label>模块说明</label>
+            <TextArea rows={4} value={this.props.curData.remarks} name="remarks" onChange={this.onFormChange} placeholder="请输入模块说明" />
             <label>模块URL</label>
             <Input value={this.props.curData.url} name="url" onChange={this.onFormChange} placeholder="请输入模块URL" />
+            <label>模块性质</label>
+            <div>
+                <RadioGroup onChange={this.onFormChange} value={this.props.curData.ismenu} name="ismenu">
+                    <Radio value={1}>模块</Radio>
+                    <Radio value={2}>接口</Radio>
+                </RadioGroup>
+            </div>
             <label>模块图标</label>
             <Select
                 showSearch

@@ -34,13 +34,17 @@ export function getIcons() {
  * @param {string} name 模块名称
  * @param {string} url 模块地址
  * @param {string} icon 模块图标
+ * @param {string} remarks 模块说明
+ * @param {number} ismenu 1-模块 2-接口
  */
-export function newModule(pid, name, url, icon) {
+export function newModule(pid, name, url, icon, remarks, ismenu) {
     return postUser("/menu/new", {
         parentid: pid,
         name: name,
         url: url,
-        icon: icon
+        icon: icon,
+        remarks: remarks,
+        ismenu: ismenu
     });
 }
 
@@ -50,13 +54,17 @@ export function newModule(pid, name, url, icon) {
  * @param {string} name 模块名称
  * @param {string} url 模块地址
  * @param {string} icon 模块图标
+ * @param {string} remarks 模块说明
+ * @param {number} ismenu 1-模块 2-接口
  */
-export function updateModule(id, name, url, icon) {
+export function updateModule(id, name, url, icon, remarks, ismenu) {
     return putUser("/menu/update", {
         id: id,
         name: name,
         url: url,
-        icon: icon
+        icon: icon,
+        remarks: remarks,
+        ismenu: ismenu
     })
 }
 

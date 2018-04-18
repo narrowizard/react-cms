@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableColumn } from '../../models/table';
-import { Modal, Icon, Layout, Table, Divider, Button, message } from 'antd';
+import { Modal, Icon, Layout, Table, Divider, Button, message, Tag } from 'antd';
 import { getModules, newModule, updateModule } from '../../services/layout/menu';
 import { ModuleNew } from './module_new';
 const { Content } = Layout;
@@ -19,9 +19,16 @@ export class ModuleManageComponent extends React.Component {
 
         this.columns = [new TableColumn("编号", "ID", "ID"),
         new TableColumn("模块图标", "Icon", "Icon", (text, record) => {
-            return <Icon type={text} />
+            return (<div>
+                <Icon type={text} />
+            </div>)
         }),
-        new TableColumn("模块名称", "Name", "Name"),
+        new TableColumn("模块名称", "Name", "Name", (text, record) => {
+            return (<div>
+                {record.IsMenu == 1 ? <Tag color="blue">menu</Tag> : <Tag color="magenta">api</Tag>}
+                {text}
+            </div>)
+        }),
         new TableColumn("模块地址", "URL", "URL"),
         new TableColumn("操作", "action", "", (text, record) => {
             return (<span>
@@ -56,7 +63,8 @@ export class ModuleManageComponent extends React.Component {
     onNewClick(pdata) {
         var temp = {
             parentid: 0,
-            pName: "顶级模块"
+            pName: "顶级模块",
+            ismenu: 1
         }
         if (pdata && pdata.Name) {
             temp.parentid = pdata.ID;
@@ -74,7 +82,9 @@ export class ModuleManageComponent extends React.Component {
             name: pdata.Name,
             url: pdata.URL,
             icon: pdata.Icon,
-            id: pdata.ID
+            id: pdata.ID,
+            ismenu: pdata.IsMenu,
+            remarks: pdata.Remarks
         }
         this.setState({
             curData: temp,
@@ -99,13 +109,13 @@ export class ModuleManageComponent extends React.Component {
 
     onSubmit() {
         if (this.state.mode === "create") {
-            newModule(this.state.curData.parentid, this.state.curData.name, this.state.curData.url, this.state.curData.icon).then((data) => {
+            newModule(this.state.curData.parentid, this.state.curData.name, this.state.curData.url, this.state.curData.icon, this.state.curData.remarks, this.state.curData.ismenu).then((data) => {
                 message.success("模块创建成功!");
                 this.hideDialog();
                 this.refreshData();
             });
         } else if (this.state.mode === "edit") {
-            updateModule(this.state.curData.id, this.state.curData.name, this.state.curData.url, this.state.curData.icon).then((data) => {
+            updateModule(this.state.curData.id, this.state.curData.name, this.state.curData.url, this.state.curData.icon, this.state.curData.remarks, this.state.curData.ismenu).then((data) => {
                 message.success("模块修改成功!");
                 this.hideDialog();
                 this.refreshData();
