@@ -94,13 +94,9 @@ export class UserNew extends React.Component {
     }
 
     onCheck(checkedKeys, e) {
-        var ck = e.checkedNodes.map((item) => {
-            return item.key;
-        });
         this.setState({
-            checkedKeys: ck
+            checkedKeys: checkedKeys.checked
         })
-        console.log(ck);
     }
 
     renderTreeNode(data) {
@@ -138,6 +134,7 @@ export class UserNew extends React.Component {
                                 showLine={true}
                                 onCheck={this.onCheck}
                                 checkedKeys={this.state.checkedKeys}
+                                checkStrictly={true}
                             >
                                 {this.renderTreeNode(this.state.modulesData)}
                             </Tree>
