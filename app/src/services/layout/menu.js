@@ -13,7 +13,7 @@ export function getModules() {
  * 获取用户有权限的模块列表
  */
 export function getUserModules() {
-    return getUser("/menu/list").then((data) => {
+    return getUser("/user/menulist").then((data) => {
         return translateMenuData(data);
     });
 }
