@@ -1,8 +1,9 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import { Link, Switch } from 'react-router-dom';
+import { Link, Switch, Redirect } from 'react-router-dom';
 import { getUserModules } from '../services/layout/menu';
 import { getRouter } from '../router';
+import { isLogin } from '../services/user/user';
 
 const { Header, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -12,6 +13,7 @@ export class LayoutComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoggedIn: true,
             collapsed: false,
             menuData: []
         };
@@ -44,12 +46,22 @@ export class LayoutComponent extends React.Component {
     }
 
     componentDidMount() {
+        isLogin().then((data) => {
+            if (!(data.toLowerCase().trim() == "true")) {
+                this.setState({
+                    isLoggedIn: false
+                })
+            }
+        });
         getUserModules().then((data) => {
             this.setState({ menuData: data });
         })
     }
 
     render() {
+        if (!this.state.isLoggedIn) {
+            return <Redirect to="/login" />
+        }
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sider

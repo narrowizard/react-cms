@@ -26,3 +26,5 @@ PORT=8080 npm start # localhost:8080
 
 ## optimize
 + login field real-time validation.
++ cancel async request in componentDidUnMount
++ redirect to login page if request returns 403 Login:UnLoginError

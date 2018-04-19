@@ -25,7 +25,7 @@ export class ModuleManageComponent extends React.Component {
         }),
         new TableColumn("模块名称", "Name", "Name", (text, record) => {
             return (<div>
-                {record.IsMenu == 1 ? <Tag color="blue">menu</Tag> : <Tag color="magenta">api</Tag>}
+                {record.IsMenu === 1 ? <Tag color="blue">menu</Tag> : <Tag color="magenta">api</Tag>}
                 {text}
             </div>)
         }),

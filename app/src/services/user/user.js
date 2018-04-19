@@ -1,4 +1,4 @@
-import { getUser, postUser, delUser, putUser } from "../common/proxy";
+import { getUser, postUser, delUser, putUser, getAuth, postAuth } from "../common/proxy";
 
 const pagesize = 10;
 
@@ -71,4 +71,23 @@ export function updateUserModules(userid, modules) {
         userid: userid,
         menus: modules
     })
+}
+
+/**
+ * 登录接口
+ * @param {string} account 用户名
+ * @param {string} password 密码
+ */
+export function login(account, password) {
+    return postAuth("/user/login", {
+        account: account,
+        password: password
+    })
+}
+
+/**
+ * 获取登录状态
+ */
+export function isLogin() {
+    return getAuth("/user/islogin");
 }

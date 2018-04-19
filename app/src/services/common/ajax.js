@@ -17,7 +17,8 @@ function ajax(url, data, method) {
             method: method,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
-            }
+            },
+            credentials: "include"
         }
         switch (method.toUpperCase()) {
             case "GET":

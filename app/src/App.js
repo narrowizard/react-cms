@@ -6,25 +6,15 @@ import { LayoutComponent } from './components/layout';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: true
-    }
-  }
-
   render() {
     return (
       <Router>
         <div>
-          <Route path="/login" component={LoginComponent}></Route>
-          <Route path="/layout" render={() => {
-            if (this.state.loggedIn) {
-              return <LayoutComponent />
-            } else {
-              return <Redirect to="/login" />
-            }
+          <Route path="/" exact render={() => {
+            return <Redirect to="/layout" />
           }} ></Route>
+          <Route path="/login" component={LoginComponent}></Route>
+          <Route path="/layout" component={LayoutComponent}></Route>
         </div>
       </Router>
     );

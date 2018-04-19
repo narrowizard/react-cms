@@ -16,6 +16,7 @@ app.use(cookieParser());
 app.use('/', express.static('app/build'));
 // proxy request start with /user to 10.0.0.236:8080
 app.use('/user', proxy('10.0.0.236:8080'));
+app.use('/auth', proxy('127.0.0.1:8081'));
 // app.use('/user', proxy('127.0.0.1:8888'));
 
 // catch 404 and forward to error handler

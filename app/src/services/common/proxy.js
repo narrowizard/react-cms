@@ -18,3 +18,11 @@ export function delUser(url, data) {
 export function putUser(url, data) {
     return put("/user" + url, data);
 }
+
+export function getAuth(url, data) {
+    return get("/auth" + url, data);
+}
+
+export function postAuth(url, data) {
+    return post("/auth" + url, data);
+}
