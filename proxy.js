@@ -1,9 +1,7 @@
 var http = require("http");
 var proxy = require('express-http-proxy');
-
-var proxyTable = {
-    "/user": '10.0.0.236:8080'
-}
+var authProxyConfig = require("./config").authProxyConfig;
+var proxyTable = require("./config").proxyTable;
 
 /**
  * 
@@ -13,13 +11,12 @@ var proxyTable = {
  */
 exports.proxyReq = function (req, res, next) {
     var options = {
-        protocol: "http:",
-        hostname: "127.0.0.1",
-        port: "8081",
         path: "/user/authorize?request=" + req.baseUrl + req.path,
         headers: req.headers
     }
-    http.get(options, (data) => {
+    var config = Object.assign(options, authProxyConfig)
+
+    http.get(config, (data) => {
         var resData = "";
         data.on("data", (chunk) => {
             resData += chunk;

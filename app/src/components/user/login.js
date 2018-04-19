@@ -44,12 +44,6 @@ class LoginFormFactory extends React.Component {
                     )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: true,
-                    })(
-                        <Checkbox>记住帐号</Checkbox>
-                    )}
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         登录
                 </Button>

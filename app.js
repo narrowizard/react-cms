@@ -6,19 +6,23 @@ var express = require('express');
 var proxy = require('express-http-proxy');
 var app = express();
 var proxyReq = require('./proxy').proxyReq;
+var proxyTable = require('./config').proxyTable;
+var authProxyConfig = require('./config').authProxyConfig;
 
-var authHost = "http://127.0.0.1:8081"
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser());
 
 app.use('/', express.static('app/build'));
-// proxy request start with /user to 10.0.0.236:8080
-app.use('/user', proxyReq);
+
+// setting proxy table
+for (var segement in proxyTable) {
+    app.use(segement, proxyReq);
+}
 
 // auth api 
-app.use('/auth', proxy(authHost));
+app.use('/auth', proxy(authProxyConfig.protocol + "//" + authProxyConfig.hostname + ":" + authProxyConfig.port));
 // app.use('/user', proxy('127.0.0.1:8888'));
 
 module.exports = app;
