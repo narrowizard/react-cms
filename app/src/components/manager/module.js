@@ -64,7 +64,12 @@ export class ModuleManageComponent extends React.Component {
         var temp = {
             parentid: 0,
             pName: "顶级模块",
-            ismenu: 1
+            ismenu: 1,
+            name: "",
+            url: "",
+            icon: "",
+            id: 0,
+            remarks: ""
         }
         if (pdata && pdata.Name) {
             temp.parentid = pdata.ID;
