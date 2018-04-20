@@ -3,25 +3,47 @@ cotent manager system based on ant design.
 
 ## usage
 ```
-git clone 
+git clone https://github.com/narrowizard/react-cms.git
+# install node proxy dependency
 npm install
+cd app
+# install react app dependency.
+npm install
+# build react app
+npm run build
+cd ..
+# start node proxy server
 npm start
 ```
 
-## 开发模式
-开发模式下,所有除静态资源的请求都会转发到localhost:8080(地址在`app/package.json`中的`proxy`段配置)这个项目
-```shell
-PORT=8080 npm start # 服务端 localhost:8080
-cd app
-npm start # 前端使用localhost:3000调试项目
+## config
+config proxy info in `config.js`.
+```js
+/**
+ * nirvana-cms-auth project host.
+ */
+exports.authProxyConfig = {
+    protocol: "http:",
+    hostname: "127.0.0.1",
+    port: "8081",
+}
+
+/**
+ * setting proxy table
+ * tips: /auth router segement is kept to cms usage. 
+ */
+exports.proxyTable = {
+    "/user": '10.0.0.236:8080' // nirvana-cms project host
+    "/myapi": 'api.mydomain.com' // config your own proxy here, normally an intranet address.
+}
 ```
 
-## 生产模式
+## development
+in develepment mode, static resource request will be proxy to `localhost:8080`(configured in `proxy` props of `app/package.json`).
 ```shell
+npm start # start node proxy, default localhost:8080
 cd app
-npm run build
-cd ..
-PORT=8080 npm start # localhost:8080
+npm start # run react dev server, default localhost:3000
 ```
 
 ## optimize
