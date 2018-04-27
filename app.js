@@ -8,6 +8,7 @@ var app = express();
 var proxyReq = require('./proxy').proxyReq;
 var proxyTable = require('./config').proxyTable;
 var authProxyConfig = require('./config').authProxyConfig;
+var pageRouter = require('./config').pageRouter;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -15,6 +16,16 @@ app.use(logger('dev'));
 app.use(cookieParser());
 
 app.use('/', express.static('app/build'));
+
+if (pageRouter) {
+    for (var p in pageRouter) {
+        app.get(pageRouter[p], getpage);
+    }
+}
+
+function getpage(req, res) {
+    res.sendFile(path.join(__dirname + '/app/build/index.html'));
+}
 
 // setting proxy table
 for (var segement in proxyTable) {

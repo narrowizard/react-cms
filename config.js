@@ -14,3 +14,5 @@ exports.authProxyConfig = {
 exports.proxyTable = {
     "/user": '10.0.0.12:9589'
 }
+
+exports.pageRouter = ["/login", "/layout", "/layout/*"]
