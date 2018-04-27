@@ -12,9 +12,11 @@ var proxyTable = require("./config").proxyTable;
 exports.proxyReq = function (req, res, next) {
     var options = {
         path: "/user/authorize?request=" + req.baseUrl + req.path,
-        headers: {
-            cookie: req.headers.cookie,
-        }
+        headers: {}
+    }
+    if (req.headers.cookie) {
+        // set cookie if exist
+        options.headers.cookie = req.headers.cookie;
     }
     var config = Object.assign(options, authProxyConfig)
     var authRequest = http.get(config, (data) => {
