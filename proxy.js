@@ -12,11 +12,12 @@ var proxyTable = require("./config").proxyTable;
 exports.proxyReq = function (req, res, next) {
     var options = {
         path: "/user/authorize?request=" + req.baseUrl + req.path,
-        headers: req.headers
+        headers: {
+            cookie: req.headers.cookie,
+        }
     }
     var config = Object.assign(options, authProxyConfig)
-
-    http.get(config, (data) => {
+    var authRequest = http.get(config, (data) => {
         var resData = "";
         data.on("data", (chunk) => {
             resData += chunk;
@@ -26,7 +27,7 @@ exports.proxyReq = function (req, res, next) {
                 proxy(proxyTable[req.baseUrl], {
                     proxyReqPathResolver: function (req) {
                         var urlObject = require('url').parse(req.url, true);
-                        urlObject.query["userid"] = +resData.trim();
+                        urlObject.query["nirvanacmsuserid"] = +resData.trim();
                         return urlObject.pathname + "?" + require("querystring").stringify(urlObject.query);
                     }
                 })(req, res, next)
@@ -35,5 +36,11 @@ exports.proxyReq = function (req, res, next) {
                 res.write(resData);
             }
         })
+    });
+
+    authRequest.on('error', (err) => {
+        console.error(err)
+        res.writeHead(502)
+        res.end()
     });
 }
