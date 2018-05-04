@@ -26,3 +26,7 @@ export function getAuth(url, data) {
 export function postAuth(url, data) {
     return post("/auth" + url, data);
 }
+
+export function delAuth(url, data) {
+    return del("/auth" + url, data);
+}

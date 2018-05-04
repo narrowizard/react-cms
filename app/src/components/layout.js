@@ -3,7 +3,7 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link, Switch, Redirect } from 'react-router-dom';
 import { getUserModules } from '../services/layout/menu';
 import { getRouter } from '../router';
-import { isLogin } from '../services/user/user';
+import { isLogin, logout } from '../services/user/user';
 
 const { Header, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -17,6 +17,8 @@ export class LayoutComponent extends React.Component {
             collapsed: false,
             menuData: []
         };
+
+        this.onLogout = this.onLogout.bind(this);
     }
 
     toggle = () => {
@@ -43,6 +45,14 @@ export class LayoutComponent extends React.Component {
             return null;
         });
         return menu;
+    }
+
+    onLogout() {
+        logout().then(() => {
+            this.setState({
+                isLoggedIn: false,
+            })
+        })
     }
 
     componentDidMount() {
@@ -81,6 +91,7 @@ export class LayoutComponent extends React.Component {
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle}
                         />
+                        <div style={{ float: "right", marginRight: 40 }}><a onClick={this.onLogout}>退出登录</a></div>
                     </Header>
                     <Switch>
                         {getRouter()}

@@ -36,6 +36,11 @@ exports.proxyTable = {
     "/user": '10.0.0.236:8080' // nirvana-cms project host
     "/myapi": 'api.mydomain.com' // config your own proxy here, normally an intranet address.
 }
+
+/**
+ * page router for production mode.
+ */
+exports.pageRouter = ["/login", "/layout", "/layout/*"]
 ```
 
 ## development
