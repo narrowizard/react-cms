@@ -15,4 +15,7 @@ exports.proxyTable = {
     "/user": '10.0.0.12:9589'
 }
 
+/**
+ * page router for production mode.
+ */
 exports.pageRouter = ["/login", "/layout", "/layout/*"]

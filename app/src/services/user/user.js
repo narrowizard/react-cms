@@ -1,4 +1,4 @@
-import { getUser, postUser, delUser, putUser, getAuth, postAuth } from "../common/proxy";
+import { getUser, postUser, delUser, putUser, getAuth, postAuth, delAuth } from "../common/proxy";
 
 const pagesize = 10;
 
@@ -83,6 +83,10 @@ export function login(account, password) {
         account: account,
         password: password
     })
+}
+
+export function logout() {
+    return delAuth("/user/logout");
 }
 
 /**
