@@ -40,6 +40,9 @@ function ajax(url, data, method) {
                 if (!res.ok) {
                     // 请求失败
                     res.json().then((data) => {
+                        if (data.reason && data.reason.indexOf("UnLoginError") > -1) {
+                            window.location.href = "/login";
+                        }
                         reject(data.message);
                     })
                     return;

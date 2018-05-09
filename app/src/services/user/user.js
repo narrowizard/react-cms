@@ -1,4 +1,4 @@
-import { getUser, postUser, delUser, putUser, getAuth, postAuth, delAuth } from "../common/proxy";
+import { getUser, postUser, delUser, putUser, getAuth, postAuth, delAuth, putAuth } from "../common/proxy";
 
 const pagesize = 10;
 
@@ -94,4 +94,16 @@ export function logout() {
  */
 export function isLogin() {
     return getAuth("/user/islogin");
+}
+
+/**
+ * 修改密码
+ * @param {string} oldpwd 旧密码
+ * @param {string} newpwd 新密码
+ */
+export function updatePassword(oldpwd, newpwd) {
+    return putAuth("/user/updatepassword", {
+        oldpwd: oldpwd,
+        newpwd: newpwd
+    })
 }
