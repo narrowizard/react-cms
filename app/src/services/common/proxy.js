@@ -30,3 +30,7 @@ export function postAuth(url, data) {
 export function delAuth(url, data) {
     return del("/auth" + url, data);
 }
+
+export function putAuth(url, data) {
+    return put("/auth" + url, data);
+}
