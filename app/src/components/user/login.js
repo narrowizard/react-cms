@@ -15,9 +15,6 @@ class LoginFormFactory extends React.Component {
         var me = this;
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
             login(values.account, values.password).then((data) => {
                 me.props.onSucc();
             })

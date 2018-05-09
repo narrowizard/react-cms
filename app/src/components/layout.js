@@ -53,9 +53,7 @@ export class LayoutComponent extends React.Component {
 
     onLogout() {
         logout().then(() => {
-            this.setState({
-                isLoggedIn: false,
-            })
+            window.location.href = "/login";
         })
     }
 
