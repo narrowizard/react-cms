@@ -1,6 +1,10 @@
 # react-cms
 cotent manager system based on ant design.  
 
+## updated 2019-07-12
+**Deprecated**.  
+In the latest update of `nirvana-cms` and `nirvana-cms-auth`, we made some broken change to its api. This project will never be supported, you should make your own implement of frontend project to use `nirvana-cms` system.
+
 ## usage
 ```
 git clone https://github.com/narrowizard/react-cms.git
